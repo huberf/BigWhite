@@ -3,7 +3,6 @@ var express = require('express.io');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var app = express();
-var nodemailer = require('nodemailer');
 var bodyParser = require('body-parser');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
