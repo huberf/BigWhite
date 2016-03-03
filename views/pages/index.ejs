@@ -17,7 +17,8 @@ var socket = io();
 var id = 0;
 socket.on('new', function(data) {
   if (id == 0 ) {
-    id = data;
+    id = data[0];
+    $('#big-white').val(data[1]);
   }
 });
 

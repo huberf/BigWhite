@@ -34,11 +34,13 @@ app.get('/', function(req, res) {
 });
 
 var id = 0;
+var lastData = ""
 
 io.sockets.on('connection', function(socket) {
   id+=1;
-  io.emit('new', id);
+  io.emit('new', [id,lastData]);
   socket.on('update text', function( data ) {
+    lastData = data[1];
     io.emit('text update', data);
   });
 });
