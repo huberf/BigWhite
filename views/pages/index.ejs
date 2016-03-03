@@ -14,9 +14,12 @@
 <script src='/socket.io/socket.io.js'></script>
 <script type-'text/javascript'>
 var socket = io();
+var lastVal = "";
 socket.on('text update', function(msg) {
   console.log(msg);
-  $('#big-white').val(msg);
+  if (msg != lastVal) {
+    $('#big-white').val(msg);
+  }
 });
 var text = "";
 console.log("Initializing...");
@@ -27,6 +30,7 @@ $('#big-white').bind("keyup paste", function(e){
         console.log('Hello world!');
         // text changed
         text = $(this).val();
+        lastVal = text;
         socket.emit('update text', text);
     }    
 });
