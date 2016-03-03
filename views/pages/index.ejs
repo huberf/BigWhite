@@ -10,12 +10,12 @@
 }
 </style>
 <textarea type='text' id='big-white' class='big-white' placeholder='Start typing...'></textarea>
-<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script src='/socket.io/socket.io.js'></script>
 <script type-'text/javascript'>
 var socket = io();
 socket.on('text update', function(msg) {
-  document.element.getById('big-white').innerHTML = msg;
+  $('#big-white').val(msg);
 });
 var text = "";
 console.log("Initializing...");
