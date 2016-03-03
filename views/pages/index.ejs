@@ -13,7 +13,7 @@
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script src='/socket.io/socket.io.js'></script>
 <script type-'text/javascript'>
-var webId = <%= id %>;
+var webId = '<%= id %>';
 var socket = io();
 var id = 0;
 socket.on('new', function(data) {
