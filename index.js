@@ -34,8 +34,8 @@ app.get('/', function(req, res) {
 });
 
 
-app.get('/:id', function(req, res) {
-	res.render('pages/index', {id: id});
+app.get('/:webId', function(req, res) {
+	res.render('pages/index', {id: webId});
 });
 
 var id = 0;
