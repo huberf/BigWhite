@@ -33,7 +33,11 @@ app.get('/', function(req, res) {
 	res.render('pages/index');
 });
 
+var id = 0;
+
 io.sockets.on('connection', function(socket) {
+  id+=1;
+  io.emit('new', id);
   socket.on('update text', function( data ) {
     io.emit('text update', data);
   });
