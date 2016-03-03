@@ -14,23 +14,29 @@
 <script src='/socket.io/socket.io.js'></script>
 <script type-'text/javascript'>
 var socket = io();
-var lastVal = "";
-socket.on('text update', function(msg) {
-  console.log(msg);
-  if (msg != lastVal) {
-    $('#big-white').val(msg);
+var id = 0;
+socket.on('new', function(data) {
+  if (id == 0 ) {
+    id = data;
   }
 });
-var text = "";
+
+socket.on('text update', function(msg) {
+  console.log(msg);
+  if (msg[0] != id) {
+    $('#big-white').val(msg[1]);
+  }
+});
+var text = [0, ""];
 console.log("Initializing...");
 
 $('#big-white').bind("keyup paste", function(e){
-    if ($(this).val() != text)
+    if ( ($(this).val() != text ) && (id != 0) )
     {
         console.log('Hello world!');
         // text changed
-        text = $(this).val();
-        lastVal = text;
+        text[1] = $(this).val();
+        text[0] = id;
         socket.emit('update text', text);
     }    
 });
