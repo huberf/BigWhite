@@ -35,7 +35,7 @@ app.get('/', function(req, res) {
 
 
 app.get('/:webId', function(req, res) {
-	res.render('pages/index', {id: webId});
+	res.render('pages/index', {id: req.params.webId});
 });
 
 var id = 0;
