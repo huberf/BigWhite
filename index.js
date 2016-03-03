@@ -33,6 +33,12 @@ app.get('/', function(req, res) {
 	res.render('pages/index');
 });
 
+io.sockets.on('connection', function(socket) {
+  socket.on('update text', function( data ) {
+    io.emit('data update', data['text']);
+  });
+});
+
 http.listen(app.get('port'), function() {
   console.log('Node app is running on port ', app.get('port'));
 });
