@@ -30,7 +30,12 @@ app.set('view engine', 'ejs');
 
 
 app.get('/', function(req, res) {
-	res.render('pages/index');
+	res.render('pages/index', {id: 'main'});
+});
+
+
+app.get('/:id', function(req, res) {
+	res.render('pages/index', {id: id});
 });
 
 var id = 0;

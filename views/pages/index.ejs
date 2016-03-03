@@ -13,6 +13,7 @@
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script src='/socket.io/socket.io.js'></script>
 <script type-'text/javascript'>
+var webId = <%= id %>;
 var socket = io();
 var id = 0;
 socket.on('new', function(data) {
@@ -24,11 +25,11 @@ socket.on('new', function(data) {
 
 socket.on('text update', function(msg) {
   console.log(msg);
-  if (msg[0] != id) {
+  if (msg[0] != id && msg[2] == webId) {
     $('#big-white').val(msg[1]);
   }
 });
-var text = [0, ""];
+var text = [0, "", webId];
 console.log("Initializing...");
 
 $('#big-white').bind("keyup paste", function(e){
