@@ -15,7 +15,7 @@
 <script type-'text/javascript'>
 var socket = io();
 socket.on('text update', function(msg) {
-document.element.getById('big-white').innerHTML = msg;
+  document.element.getById('big-white').innerHTML = msg;
 });
 var text = "";
 console.log("Initializing...");

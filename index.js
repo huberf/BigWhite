@@ -35,7 +35,7 @@ app.get('/', function(req, res) {
 
 io.sockets.on('connection', function(socket) {
   socket.on('update text', function( data ) {
-    io.emit('data update', data['text']);
+    io.emit('text update', data['text']);
   });
 });
 
