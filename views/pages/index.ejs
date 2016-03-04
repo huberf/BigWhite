@@ -10,6 +10,7 @@
 }
 </style>
 <textarea type='text' id='big-white' class='big-white' placeholder='Start typing...'></textarea>
+<input type='text' id='size-control' val='120' />
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script src='/socket.io/socket.io.js'></script>
 <script type-'text/javascript'>
@@ -40,6 +41,21 @@ $('#big-white').bind("keyup paste", function(e){
         text[1] = $(this).val();
         text[0] = id;
         socket.emit('update text', text);
+    }    
+});
+var size = [0, '<%= id %>'];
+socket.on('update size', function(data) {
+  console.log(data);
+  if (size[1] != id) {
+    $('#big-white').size(size[0]);
+    $('#size=control').val(size[1]);
+  }
+});
+$('#size-control').bind("keyup paste", function(e){
+    if ( ($(this).val() != size[0] ))
+    {
+        size[0] = $(this).val();
+        socket.emit('size update', size);
     }    
 });
 </script>

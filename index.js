@@ -28,9 +28,15 @@ app.use(session({secret: 's3cr3tsSh0uldB3K3pt'}));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
+var id = 0;
+
+var master = 0;
 
 app.get('/', function(req, res) {
-	res.render('pages/index', {id: 'main'});
+  if (id == 0) {
+    master = 1;
+  }
+	  res.render('pages/index', {id: 'main'});
 });
 
 
@@ -46,7 +52,16 @@ io.sockets.on('connection', function(socket) {
   io.emit('new', [id,lastData]);
   socket.on('update text', function( data ) {
     lastData = data[1];
-    io.emit('text update', data);
+    if (data[2] == 'main') {
+      if(data[0] == master) {
+        io.emit('text update', data);
+      }
+    } else {
+      io.emit('text update', data);
+    }
+  });
+  socket.on('size update', function( data ) {
+    socket.emit('update size', data);
   });
 });
 
