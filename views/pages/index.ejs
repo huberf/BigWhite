@@ -46,10 +46,10 @@ $('#big-white').bind("keyup paste", function(e){
 var size = [0, '<%= id %>'];
 socket.on('update size', function(data) {
   console.log(data);
-  if (data[1] != id) {
+  if (data[1] == webId) {
     $('#size-control').val(data[0]);
-  }
     $('#big-white').css("font-size", data[0]);
+  }
 });
 $('#size-control').bind("keyup paste", function(e){
     if ( ($(this).val() != size[0] ))
