@@ -17,10 +17,12 @@
 var webId = '<%= id %>';
 var socket = io();
 var id = 0;
+var size = [0, id];
 socket.on('new', function(data) {
   if (id == 0 ) {
     id = data[0];
     $('#big-white').val(data[1]);
+    size[1] = id;
   }
 });
 
@@ -43,13 +45,12 @@ $('#big-white').bind("keyup paste", function(e){
         socket.emit('update text', text);
     }    
 });
-var size = [0, '<%= id %>'];
 socket.on('update size', function(data) {
   console.log(data);
-  if (data[1] == webId) {
+  if (data[1] != id) {
     $('#size-control').val(data[0]);
-    $('#big-white').css("font-size", data[0]);
   }
+    $('#big-white').css("font-size", data[0]);
 });
 $('#size-control').bind("keyup paste", function(e){
     if ( ($(this).val() != size[0] ))
