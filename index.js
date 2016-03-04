@@ -33,14 +33,14 @@ var id = 0;
 var master = 0;
 
 app.get('/', function(req, res) {
-  if (id == 0) {
-    master = 1;
-  }
 	  res.render('pages/index', {id: 'main'});
 });
 
 
 app.get('/:webId', function(req, res) {
+  if (req.params.webId == 'main') {
+    master = id + 1;
+  }
 	res.render('pages/index', {id: req.params.webId});
 });
 
@@ -61,7 +61,7 @@ io.sockets.on('connection', function(socket) {
     }
   });
   socket.on('size update', function( data ) {
-    socket.emit('update size', data);
+    io.emit('update size', data);
   });
 });
 
