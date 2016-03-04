@@ -53,7 +53,9 @@ io.sockets.on('connection', function(socket) {
   socket.on('update text', function( data ) {
     lastData = data[1];
     if (data[2] == 'main') {
+      console.log('Main detected');
       if(data[0] == master) {
+        console.log('Master detected');
         io.emit('text update', data);
       }
     } else {
