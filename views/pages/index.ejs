@@ -45,12 +45,12 @@ $('#big-white').bind("keyup paste", function(e){
         socket.emit('update text', text);
     }    
 });
-socket.on('update size', function(data) {
-  console.log(data);
-  if (data[1] != id) {
-    $('#size-control').val(data[0]);
+socket.on('update size', function(sizeData) {
+  console.log(sizeData);
+  if (sizeData[1] != id) {
+    $('#size-control').val(sizeData[0]);
   }
-    $('#big-white').css("font-size", data[0]);
+    $('#big-white').css("font-size", sizeData[0]);
 });
 $('#size-control').bind("keyup paste", function(e){
     if ( ($(this).val() != size[0] ))
