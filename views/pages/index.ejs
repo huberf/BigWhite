@@ -48,7 +48,7 @@ socket.on('update size', function(data) {
   console.log(data);
   if (data[1] != id) {
     $('#big-white').css("font-size", data[0]);
-    $('#size=control').val(size[1]);
+    $('#size-control').val(size[1]);
   }
 });
 $('#size-control').bind("keyup paste", function(e){
