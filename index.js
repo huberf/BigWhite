@@ -1,5 +1,6 @@
 //Getting all dependencies
 var express = require('express.io');
+var passGen = require('password-generator');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var app = express();
@@ -39,7 +40,8 @@ var id = 0;
 var master = 0;
 
 app.get('/', function(req, res) {
-	  res.render('pages/index', {id: 'main', pageName: 'main'});
+  res.render('pages/home', {newPage: passGen(6)});
+	  // res.render('pages/index', {id: 'main', pageName: 'main'});
 });
 
 
