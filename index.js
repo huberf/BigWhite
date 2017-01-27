@@ -9,6 +9,12 @@ var io = require('socket.io')(http);
 
 app.http().io()
 
+var redis = require('redis');
+var store = redis.createClient();
+store.on("error", function (err) {
+      console.log("Error " + err);
+});
+
 //Setting up the port to listen to
 app.set('port', (process.env.PORT || 5000));
 
@@ -33,7 +39,7 @@ var id = 0;
 var master = 0;
 
 app.get('/', function(req, res) {
-	  res.render('pages/index', {id: 'main'});
+	  res.render('pages/index', {id: 'main', pageName: 'main'});
 });
 
 
@@ -41,17 +47,20 @@ app.get('/:webId', function(req, res) {
   if (req.params.webId == 'main') {
     master = id + 1;
   }
-	res.render('pages/index', {id: req.params.webId});
+	res.render('pages/index', {id: req.params.webId, pageName: req.params.webId});
 });
 
 var id = 0;
-var lastData = ""
 
 io.sockets.on('connection', function(socket) {
   id+=1;
-  io.emit('new', [id,lastData]);
+  socket.on('begin', (data) => {
+    store.get(data, (err, data) => {
+      io.emit('new', [id, data]);
+    });
+  });
   socket.on('update text', function( data ) {
-    lastData = data[1];
+    store.set(data[2], data[1])
     if (data[2] == 'main') {
       console.log('Main detected');
       if(data[0] == master) {

@@ -15,6 +15,7 @@
 <script src='/socket.io/socket.io.js'></script>
 <script type-'text/javascript'>
 var webId = '<%= id %>';
+var pageName = '<%= pageName %>'
 var socket = io();
 var id = 0;
 var size = [0, id];
@@ -25,6 +26,7 @@ socket.on('new', function(data) {
     size[1] = id;
   }
 });
+socket.emit('begin', pageName);
 
 socket.on('text update', function(msg) {
   console.log(msg);
