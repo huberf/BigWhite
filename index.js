@@ -10,7 +10,7 @@ var io = require('socket.io')(http);
 app.http().io()
 
 var redis = require('redis');
-var store = redis.createClient();
+var store = redis.createClient(process.env.REDIS_URL);
 store.on("error", function (err) {
       console.log("Error " + err);
 });
