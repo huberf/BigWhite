@@ -1,0 +1,3 @@
+<h1>Welcome to Big White Tech</h1>
+<p>The #1 site for realtime text based collaboration.</p>
+<p>Personal board available at <a href="https://bigwhite.tech/<%= newPage %>">bigwhite.tech/<%= newPage %></a></p>
