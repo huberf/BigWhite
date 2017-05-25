@@ -58,7 +58,13 @@ io.sockets.on('connection', function(socket) {
   id+=1;
   socket.on('begin', (data) => {
     store.get(data, (err, data) => {
-      io.emit('new', [id, data]);
+      store.get(data + '_size', (err, size) => {
+        var size_send = 120;
+        if (!err && size) {
+          size_send = size;
+        }
+        io.emit('new', [id, data, size_send]);
+      });
     });
   });
   socket.on('update text', function( data ) {
@@ -74,7 +80,8 @@ io.sockets.on('connection', function(socket) {
     }
   });
   socket.on('size update', function( data ) {
-    io.emit('update size', data);
+    io.emit('update size', data.size);
+    store.set(data.name + '_size', data.size);
   });
 });
 

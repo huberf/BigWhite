@@ -24,6 +24,10 @@ socket.on('new', function(data) {
     id = data[0];
     $('#big-white').val(data[1]);
     size[1] = id;
+    if (data[2]) {
+      $('#size-control').val(data[2]);
+      $('#big-white').css("font-size", data[2]);
+    }
   }
 });
 socket.emit('begin', pageName);
@@ -58,7 +62,7 @@ $('#size-control').bind("keyup paste", function(e){
     if ( ($(this).val() != size[0] ))
     {
         size[0] = $(this).val();
-        socket.emit('size update', size);
+        socket.emit('size update', {size: size, id: pageName});
     }    
 });
 </script>
