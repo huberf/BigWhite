@@ -53,10 +53,10 @@ $('#big-white').bind("keyup paste", function(e){
 });
 socket.on('update size', function(sizeData) {
   console.log(sizeData);
-  if (sizeData[1] != id) {
-    $('#size-control').val(sizeData[0]);
+  if (sizeData.id == pageName) {
+    $('#size-control').val(sizeData.size);
   }
-    $('#big-white').css("font-size", sizeData[0]);
+    $('#big-white').css("font-size", sizeData.size);
 });
 $('#size-control').bind("keyup paste", function(e){
     if ( ($(this).val() != size[0] ))
