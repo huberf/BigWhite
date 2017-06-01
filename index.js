@@ -57,13 +57,13 @@ var id = 0;
 io.sockets.on('connection', function(socket) {
   id+=1;
   socket.on('begin', (data) => {
-    store.get(data, (err, data) => {
+    store.get(data, (err, info) => {
       store.get(data + '_size', (err, size) => {
         var size_send = 60;
         if (!err && size) {
           size_send = size;
         }
-        io.emit('new', [id, data, size_send]);
+        io.emit('new', [id, info, size_send]);
       });
     });
   });
@@ -80,7 +80,7 @@ io.sockets.on('connection', function(socket) {
     }
   });
   socket.on('size update', function( data ) {
-    console.log('Changing size to '+ data.size);
+    console.log('Changing size to '+ data.size + ' for page ' + data.name);
     io.emit('update size', data);
     store.set(data.name + '_size', data.size);
   });
