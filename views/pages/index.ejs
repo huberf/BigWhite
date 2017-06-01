@@ -53,7 +53,7 @@ $('#big-white').bind("keyup paste", function(e){
 });
 socket.on('update size', function(sizeData) {
   console.log(sizeData);
-  if (sizeData.id == pageName) {
+  if (sizeData.id != id) {
     $('#size-control').val(sizeData.size);
   }
     $('#big-white').css("font-size", sizeData.size);
@@ -62,7 +62,7 @@ $('#size-control').bind("keyup paste", function(e){
     if ( ($(this).val() != size[0] ))
     {
         size[0] = $(this).val();
-        socket.emit('size update', {size: size, id: pageName});
+        socket.emit('size update', {size: size, id: id});
     }    
 });
 </script>
