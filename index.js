@@ -49,7 +49,12 @@ app.get('/:webId', function(req, res) {
   if (req.params.webId == 'main') {
     master = id + 1;
   }
-	res.render('pages/index', {id: req.params.webId, pageName: req.params.webId});
+  // This check is for security measures regarding the data store
+  if (req.params.webId.indexOf('_') > -1) {
+    res.send('Oops! Your URL is malformed. Try removing the character "_".');
+  } else {
+    res.render('pages/index', {id: req.params.webId, pageName: req.params.webId});
+  }
 });
 
 var id = 0;
@@ -83,6 +88,10 @@ io.sockets.on('connection', function(socket) {
     console.log('Changing size to '+ data.size + ' for page ' + data.name);
     io.emit('update size', data);
     store.set(data.name + '_size', data.size);
+  });
+  socket.on('authenticate', (data) => {
+    console.log(`Authenticating for page ${data.name}`);
+    // TODO: Built authentication tool for master edit of pages
   });
 });
 
