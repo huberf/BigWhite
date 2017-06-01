@@ -58,7 +58,7 @@ io.sockets.on('connection', function(socket) {
   id+=1;
   socket.on('begin', (data) => {
     store.get(data, (err, data) => {
-      store.get(data + 'size', (err, size) => {
+      store.get(data + '_size', (err, size) => {
         var size_send = 60;
         if (!err && size) {
           size_send = size;
@@ -82,7 +82,7 @@ io.sockets.on('connection', function(socket) {
   socket.on('size update', function( data ) {
     console.log('Changing size to '+ data.size);
     io.emit('update size', data);
-    store.set(data.name + 'size', data.size);
+    store.set(data.name + '_size', data.size);
   });
 });
 

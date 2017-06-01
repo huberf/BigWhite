@@ -62,7 +62,7 @@ $('#size-control').bind("keyup paste", function(e){
     if ( ($(this).val() != size[0] ))
     {
         size[0] = $(this).val();
-        socket.emit('size update', {size: size[0], id: id});
+        socket.emit('size update', {size: size[0], id: id, name: webId});
     }    
 });
 </script>
